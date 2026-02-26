@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sota Iida | Video Editing Portfolio</title>
+    <title>Sota Iida | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #e50914;
-            --bg: #0a0a0a;
+            --primary: #ff3e3e;
+            --primary-glow: rgba(255, 62, 62, 0.3);
+            --bg: #050505;
             --card-bg: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
             --text: #ffffff;
             --text-dim: #a0a0a0;
-            --accent-grad: linear-gradient(135deg, #e50914 0%, #ff4d4d 100%);
         }
 
+        /* ベース設定 */
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
             background-color: var(--bg);
@@ -23,113 +24,135 @@
             margin: 0; padding: 0;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* 背景の動的な光 */
         .bg-glow {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 80% 20%, rgba(229, 9, 20, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(229, 9, 20, 0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 80% 20%, rgba(255, 62, 62, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(255, 62, 62, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
 
+        /* ヘッダー */
         header {
-            height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 1rem;
+            height: 60vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 0 1rem;
+            animation: fadeIn 1.5s ease-out;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -2px;
-            background: var(--accent-grad);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2.8rem, 10vw, 5.5rem);
+            font-weight: 800; margin: 0;
+            letter-spacing: -2px; line-height: 1.1;
+            background: linear-gradient(180deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
-            font-size: 1rem; color: var(--text-dim);
-            letter-spacing: 5px; text-transform: uppercase; margin-top: 10px;
+            font-size: 0.9rem; color: var(--text-dim);
+            letter-spacing: 0.5em; text-transform: uppercase;
+            margin-top: 20px; font-weight: 400;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; }
+        /* コンテナ */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
 
-        section { margin-bottom: 6rem; animation: fadeInUp 1s ease forwards; }
-
-        #about {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            padding: 3rem;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        /* セクション共通 */
+        section { 
+            margin-bottom: 8rem; 
+            opacity: 0; transform: translateY(30px); 
+            animation: fadeInUp 0.8s ease forwards; 
         }
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
 
         h2 {
-            font-size: 2rem; margin-bottom: 2.5rem; font-weight: 700;
-            display: flex; align-items: center;
+            font-size: 1.5rem; margin-bottom: 3rem; font-weight: 700;
+            display: flex; align-items: center; letter-spacing: 2px;
         }
 
         h2::after {
-            content: ""; height: 2px; flex-grow: 1;
+            content: ""; height: 1px; flex-grow: 1;
             background: linear-gradient(to right, var(--primary), transparent);
             margin-left: 20px;
         }
 
+        /* Aboutセクションの特別デザイン */
+        #about {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            padding: 3.5rem; border-radius: 40px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        #about p { font-size: 1.1rem; color: #ddd; margin: 0; }
+
+        /* グリッド */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2.5rem;
         }
 
+        /* カードデザイン */
         .card {
             background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
+            border-radius: 24px; overflow: hidden;
             border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
         }
 
         .card:hover {
             transform: translateY(-12px);
-            border-color: rgba(229, 9, 20, 0.5);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border-color: rgba(255, 62, 62, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
         .media-box {
-            position: relative;
-            padding-bottom: 56.25%;
+            position: relative; padding-bottom: 56.25%;
             height: 0; overflow: hidden; background: #000;
         }
 
         .media-box iframe, .media-box img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
-            transition: transform 0.6s ease;
-            object-fit: cover;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: 0; object-fit: cover; transition: transform 0.8s ease;
         }
 
-        .card:hover .media-box img { transform: scale(1.08); }
+        .card:hover .media-box img { transform: scale(1.1); }
 
-        .card-body { padding: 1.5rem; }
-        .card-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; display: block; }
-        .card-text { font-size: 0.9rem; color: var(--text-dim); }
+        .card-body { padding: 1.8rem; }
+        .card-title { font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; display: block; }
+        .card-text { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
 
+        /* フッター */
         footer {
-            text-align: center; padding: 5rem 1rem;
+            text-align: center; padding: 6rem 1rem;
             border-top: 1px solid var(--border);
-            color: #444; font-size: 0.8rem;
+            color: #555; font-size: 0.85rem; letter-spacing: 1px;
         }
 
+        /* アニメーション */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* レスポンシブ調整 */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.2rem; }
+            .grid { grid-template-columns: 1fr; }
+            #about { padding: 2rem; }
+            section { margin-bottom: 5rem; }
         }
     </style>
 </head>
@@ -149,7 +172,7 @@
     </section>
 
     <section id="videos">
-        <h2>動画</h2>
+        <h2>Works: Video</h2>
         <div class="grid">
             <div class="card">
                 <div class="media-box">
@@ -177,22 +200,22 @@
                 </div>
                 <div class="card-body">
                     <span class="card-title">音楽紹介PR</span>
-                    <p class="card-text">紹介者の声を大切に展開</p>
+                    <p class="card-text">紹介者の声を大切に、リズム感のある展開を意識しました。</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="thumbnails">
-        <h2>サムネイル</h2>
+        <h2>Works: Thumbnail</h2>
         <div class="grid">
             <div class="card">
                 <div class="media-box">
-                    <img src="ガラス風.png" alt="ガラス風">
+                    <img src="ガラス風.png" alt="ガラス風">
                 </div>
                 <div class="card-body">
                     <span class="card-title">本紹介</span>
-                    <p class="card-text">ぱっとすぐに何が大事なのかが分かるデザイン。</p>
+                    <p class="card-text">ぱっとすぐに何が大事なのかが分かる、視認性の高いデザイン。</p>
                 </div>
             </div>
 
